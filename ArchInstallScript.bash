@@ -45,7 +45,7 @@ mount --mkdir /dev/nvme0n1p1 /mnt/boot
 
 #Enable multilib for 32-bit packages
 sed -i '/^\[multilib\]/,/^Include/ s/^#//' /etc/pacman.conf
-pacman -syu
+pacman -Syu
 
 #Install packages
 pacstrap -K /mnt base linux linux-firmware | #Core Arch Packages
