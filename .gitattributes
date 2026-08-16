@@ -1,0 +1,12 @@
+# Handle text files automatically and force LF on checkout
+* text=auto eol=lf
+
+# Explicitly ensure specific text files use LF
+*.js text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.bash text eol=lf
+
+# Denote binary files so Git leaves them untouched
+*.png binary
+*.jpg binary
