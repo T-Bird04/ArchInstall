@@ -49,13 +49,21 @@ pacman -Syu
 
 #Install packages
 pacstrap -K /mnt base linux linux-firmware #Core Arch Packages
+pacman -Syu
 pacstrap -K /mnt amd-ucode mesa lib32-mesa vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader #Hardware Packages	
+pacman -Syu
 pacstrap -K /mnt networkmanager sudo #Service Packages
+pacman -Syu
 pacstrap -K /mnt pipewire wireplumber pipewire-pulse pipewire-alsa rtkit #Audio Packages
+pacman -Syu
 pacstrap -K /mnt btrfs-progs dosfstools man-db man-pages texinfo efibootmanager snapper btrfs-assistant #Filesystem + Snapshot Packages
+pacman -Syu
 pacstrap -K /mnt micro neovim firefox steam lutris wine winetricks #Program Packages
+pacman -Syu
 pacstrap -K /mnt grub grub-btrfs #Bootloader Packages
+pacman -Syu
 pacstrap -K /mnt plasma-meta sddm #Desktop Enviornment Packages
+pacman -Syu
 			
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
