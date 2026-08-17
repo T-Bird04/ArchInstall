@@ -27,7 +27,7 @@ EOF
 mkfs.fat -F 32 /dev/nvme0n1p1 #EFI Boot parition is FAT32
 mkfs.btrfs -f /dev/nvme0n1p3 #Root partition is Btrfs
 
-#Enable Swap partition
+#Format + enable swap partition
 mkswap /dev/nvme0n1p2
 swapon /dev/nvme0n1p2
 
