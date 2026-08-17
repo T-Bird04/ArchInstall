@@ -71,7 +71,8 @@ rtkit)
 FILE_PACKAGES=(
 btrfs-progs
 dosfstools
-man-db man-pages
+man-db
+man-pages
 texinfo
 efibootmanager
 snapper
