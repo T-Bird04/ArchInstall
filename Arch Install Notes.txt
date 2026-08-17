@@ -1,0 +1,4 @@
+Ensure Windows SSD NVMe slot is disabled in BIOS/UEFI (Should be slot 1).
+Use Nano to enable multilib for pacman (nano /etc/pacman.conf).
+Use curl to install script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
+Reboot system.
