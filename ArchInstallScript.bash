@@ -77,7 +77,7 @@ efibootmanager
 snapper
 btrfs-assistant)
 
-PROGRAM_PCAKAGES=(
+PROGRAM_PACKAGES=(
 micro
 neovim
 firefox
