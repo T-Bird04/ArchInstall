@@ -25,10 +25,14 @@ EOF
 
 #Format paritions
 mkfs.fat -F 32 /dev/nvme0n1p1 #EFI Boot parition is FAT32
-mkfs.btrfs -f /dev/nvme0n1p2 #Root partition is Btrfs
+mkfs.btrfs -f /dev/nvme0n1p3 #Root partition is Btrfs
+
+#Enable Swap partition
+mkswap /dev/nvme0n1p2
+swapon /dev/nvme0n1p2
 
 #Mount btrfs partition
-mount /dev/nvme0n1p2 /mnt #Mount Root
+mount /dev/nvme0n1p3 /mnt #Mount Root
 
 #Create subvolumes for use with snapper
 btrfs subvolume create /mnt/@
@@ -37,11 +41,11 @@ btrfs subvolume create /mnt/@snapshots
 
 #Unmount Btrfs partition and mount subvolumes and boot partition
 umount /mnt
-mount -o subvol=@,compress=zstd,noatime /dev/nvme0n1p2 /mnt
+mount -o subvol=@,compress=zstd,noatime /dev/nvme0n1p3 /mnt
 mkdir -p /mnt/home
-mount -o subvol=@home,compress=zstd,noatime /dev/nvme0n1p2 /mnt/home
+mount -o subvol=@home,compress=zstd,noatime /dev/nvme0n1p3 /mnt/home
 mkdir -p /mnt/.snapshots
-mount -o subvol=@snapshots,compress=zstd,noatime /dev/nvme0n1p2 /mnt/.snapshots
+mount -o subvol=@snapshots,compress=zstd,noatime /dev/nvme0n1p3 /mnt/.snapshots
 mount --mkdir /dev/nvme0n1p1 /mnt/boot
 
 #Create Package Bundles
