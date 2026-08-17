@@ -74,7 +74,7 @@ dosfstools
 man-db 
 man-pages
 texinfo
-efibootmanager
+efibootmgr
 snapper
 btrfs-assistant)
 
