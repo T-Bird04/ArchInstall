@@ -43,15 +43,59 @@ mkdir -p /mnt/.snapshots
 mount -o subvol=@snapshots,compress=zstd,noatime /dev/nvme0n1p2 /mnt/.snapshots
 mount --mkdir /dev/nvme0n1p1 /mnt/boot
 
+#Create Package Bundles
+CORE_PACKAGES=(
+base
+linux
+linux-firmware)
+
+HARDWARE_PACKAGES=(
+amd-ucode
+mesa
+lib32-mesa
+vulkan-radeon
+vulkan-icd-loader
+lib32-vulkan-icd-loader)
+
+SERVICE_PACKAGES=(
+networkmanager
+sudo)
+
+AUDIO_PACKAGES=(
+pipewire
+wireplumber
+pipewire-pulse
+pipewire-alsa
+rtkit)
+
+FILE_PACKAGES=(
+btrfs-progs
+dosfstools
+man-db man-pages
+texinfo
+efibootmanager
+snapper
+btrfs-assistant)
+
+PROGRAM_PCAKAGES=(
+micro
+neovim
+firefox
+steam
+lutris
+wine
+winetricks)
+
+BOOTLOADER_PACKAGES=(
+grub
+grub-btrfs)
+
+DESKTOP_PACKAGES=(
+plasma-meta
+sddm)
+
 #Install packages
-pacstrap -K /mnt base linux linux-firmware | #Core Arch Packages
-			amd-ucode mesa lib32-mesa vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader | #Hardware Packages	
-			networkmanager sudo | #Service Packages
-			pipewire wireplumber pipewire-pulse pipewire-alsa rtkit | #Audio Packages
-			btrfs-progs dosfstools man-db man-pages texinfo efibootmanager snapper btrfs-assistant | #Filesystem + Snapshot Packages
-			micro neovim firefox steam lutris wine winetricks | #Program Packages
-			grub grub-btrfs | #Bootloader Packages
-			plasma-meta sddm #Desktop Enviornment Packages
+pacstrap -K /mnt "${CORE_PACKAGES[@]}" "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}" 
 			
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
