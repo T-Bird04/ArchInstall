@@ -59,7 +59,8 @@ lib32-vulkan-icd-loader)
 
 SERVICE_PACKAGES=(
 networkmanager
-sudo)
+sudo
+inotify-tools)
 
 AUDIO_PACKAGES=(
 pipewire
@@ -76,6 +77,7 @@ man-pages
 texinfo
 efibootmgr
 snapper
+snap-pac
 btrfs-assistant)
 
 PROGRAM_PACKAGES=(
