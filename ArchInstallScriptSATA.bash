@@ -96,7 +96,7 @@ sddm)
 
 #Install packages
 pacstrap -K /mnt "${CORE_PACKAGES[@]}" "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}" 
-			
+
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
 
