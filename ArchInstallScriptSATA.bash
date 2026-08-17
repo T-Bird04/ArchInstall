@@ -43,10 +43,6 @@ mkdir -p /mnt/.snapshots
 mount -o subvol=@snapshots,compress=zstd,noatime /dev/sda2 /mnt/.snapshots
 mount --mkdir /dev/sda1 /mnt/boot
 
-#Enable multilib for 32-bit packages
-sed -i '/^\[multilib\]/,/^Include/ s/^#//' /etc/pacman.conf
-pacman -Syu
-
 #Install packages
 pacstrap -K /mnt base linux linux-firmware #Core Arch Packages
 pacman -Syu
