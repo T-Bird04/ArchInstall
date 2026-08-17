@@ -19,6 +19,7 @@ fi
 sfdisk /dev/nvme0n1 <<EOF
 label: gpt
 name="Boot", size=1G, type=U
+name="Swap", size=32G, type=swap
 name="Root", size=+, type=L
 EOF
 
