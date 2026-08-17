@@ -97,8 +97,8 @@ DESKTOP_PACKAGES=(
 plasma-meta
 sddm)
 
-#Install packages
-pacstrap -K /mnt "${CORE_PACKAGES[@]}" "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}" 
+#Install core packages
+pacstrap -K /mnt "${CORE_PACKAGES[@]}"
 
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -117,6 +117,9 @@ hwclock --systohc
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+#Install extra packages
+pacman -S "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}" 
 
 #Set up GRUB boot manager
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
