@@ -19,15 +19,20 @@ fi
 sfdisk /dev/sda <<EOF
 label: gpt
 name="Boot", size=1G, type=U
+name="Swap", size=32G, type=S
 name="Root", size=+, type=L
 EOF
 
 #Format paritions
 mkfs.fat -F 32 /dev/sda1 #EFI Boot parition is FAT32
-mkfs.btrfs -f /dev/sda2 #Root partition is Btrfs
+mkfs.btrfs -f /dev/sda3 #Root partition is Btrfs
+
+#Format + enable swap partition
+mkswap /dev/sda2
+swapon /dev/sda2
 
 #Mount btrfs partition
-mount /dev/sda2 /mnt #Mount Root
+mount /dev/sda3 /mnt #Mount Root
 
 #Create subvolumes for use with snapper
 btrfs subvolume create /mnt/@
@@ -36,11 +41,11 @@ btrfs subvolume create /mnt/@snapshots
 
 #Unmount Btrfs partition and mount subvolumes and boot partition
 umount /mnt
-mount -o subvol=@,compress=zstd,noatime /dev/sda2 /mnt
+mount -o subvol=@,compress=zstd,noatime /dev/sda3 /mnt
 mkdir -p /mnt/home
-mount -o subvol=@home,compress=zstd,noatime /dev/sda2 /mnt/home
+mount -o subvol=@home,compress=zstd,noatime /dev/sda3 /mnt/home
 mkdir -p /mnt/.snapshots
-mount -o subvol=@snapshots,compress=zstd,noatime /dev/sda2 /mnt/.snapshots
+mount -o subvol=@snapshots,compress=zstd,noatime /dev/sda3 /mnt/.snapshots
 mount --mkdir /dev/sda1 /mnt/boot
 
 #Create Package Bundles
@@ -97,8 +102,8 @@ DESKTOP_PACKAGES=(
 plasma-meta
 sddm)
 
-#Install packages
-pacstrap -K /mnt "${CORE_PACKAGES[@]}" "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}" 
+#Install core packages
+pacstrap -K /mnt "${CORE_PACKAGES[@]}"  
 
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -117,6 +122,9 @@ hwclock --systohc
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+#Install extra packages
+pacman -S "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}"
 
 #Set up GRUB boot manager
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
