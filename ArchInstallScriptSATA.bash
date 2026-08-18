@@ -48,7 +48,7 @@ mkdir -p /mnt/.snapshots
 mount -o subvol=@snapshots,compress=zstd,noatime /dev/sda3 /mnt/.snapshots
 mount --mkdir /dev/sda1 /mnt/boot
 
-#Create Package Bundles
+#Create package bundles
 CORE_PACKAGES=(
 base
 linux
@@ -103,7 +103,7 @@ plasma-meta
 sddm)
 
 #Install core packages
-pacstrap -K /mnt "${CORE_PACKAGES[@]}"  
+pacstrap -K /mnt "${CORE_PACKAGES[*]}"  
 
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -121,7 +121,7 @@ locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 #Install extra packages
-pacman -S "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}"
+pacman -S "${HARDWARE_PACKAGES[*]}" "${SERVICE_PACKAGES[*]}" "${AUDIO_PACKAGES[*]}" "${FILE_PACKAGES[*]}" "${PROGRAM_PACKAGES[*]}" "${BOOTLOADER_PACKAGES[*]}" "${DESKTOP_PACKAGES[*]}"
 
 #Set up GRUB boot manager
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
