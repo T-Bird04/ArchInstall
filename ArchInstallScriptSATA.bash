@@ -48,12 +48,31 @@ mkdir -p /mnt/.snapshots
 mount -o subvol=@snapshots,compress=zstd,noatime /dev/sda3 /mnt/.snapshots
 mount --mkdir /dev/sda1 /mnt/boot
 
-#Create package bundles
+#Create core package bundle
 CORE_PACKAGES=(
 base
 linux
 linux-firmware)
 
+#Install core packages
+pacstrap -K /mnt "${CORE_PACKAGES[@]}"  
+
+#Create fstab file
+genfstab -U /mnt >> /mnt/etc/fstab
+
+#Enter chroot
+arch-chroot /mnt <<CHROOT_EOF
+
+#Set up user time
+ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+hwclock --systohc
+
+#Set up localization
+sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+#Create extra package bundles
 HARDWARE_PACKAGES=(
 amd-ucode
 mesa
@@ -102,26 +121,8 @@ DESKTOP_PACKAGES=(
 plasma-meta
 sddm)
 
-#Install core packages
-pacstrap -K /mnt "${CORE_PACKAGES[*]}"  
-
-#Create fstab file
-genfstab -U /mnt >> /mnt/etc/fstab
-
-#Enter chroot
-arch-chroot /mnt <<CHROOT_EOF
-
-#Set up user time
-ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
-hwclock --systohc
-
-#Set up localization
-sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
-locale-gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
-
 #Install extra packages
-pacman -S "${HARDWARE_PACKAGES[*]}" "${SERVICE_PACKAGES[*]}" "${AUDIO_PACKAGES[*]}" "${FILE_PACKAGES[*]}" "${PROGRAM_PACKAGES[*]}" "${BOOTLOADER_PACKAGES[*]}" "${DESKTOP_PACKAGES[*]}"
+pacman -S "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}"
 
 #Set up GRUB boot manager
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
