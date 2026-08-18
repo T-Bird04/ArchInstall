@@ -108,9 +108,6 @@ pacstrap -K /mnt "${CORE_PACKAGES[@]}"
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
 
-#Set up root password
-arch-chroot /mnt passwd
-
 #Enter chroot
 arch-chroot /mnt <<CHROOT_EOF
 
