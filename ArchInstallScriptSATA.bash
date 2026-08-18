@@ -120,6 +120,9 @@ sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
+#Update pacman.conf
+cp /etc/pacman.conf /mnt/etc/pacman.conf
+
 #Install extra packages
 pacman -S ${HARDWARE_PACKAGES[@]} ${SERVICE_PACKAGES[@]} ${AUDIO_PACKAGES[@]} ${FILE_PACKAGES[@]} ${PROGRAM_PACKAGES[@]} ${BOOTLOADER_PACKAGES[@]} ${DESKTOP_PACKAGES[@]}
 
