@@ -108,6 +108,9 @@ pacstrap -K /mnt "${CORE_PACKAGES[@]}"
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
 
+#Update pacman.conf
+cp /etc/pacman.conf /mnt/etc/pacman.conf
+
 #Enter chroot
 arch-chroot /mnt <<CHROOT_EOF
 
@@ -121,7 +124,7 @@ locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 #Install extra packages
-pacman -S "${HARDWARE_PACKAGES[@]}" "${SERVICE_PACKAGES[@]}" "${AUDIO_PACKAGES[@]}" "${FILE_PACKAGES[@]}" "${PROGRAM_PACKAGES[@]}" "${BOOTLOADER_PACKAGES[@]}" "${DESKTOP_PACKAGES[@]}" 
+pacman -S --noconfirm ${HARDWARE_PACKAGES[@]} ${SERVICE_PACKAGES[@]} ${AUDIO_PACKAGES[@]} ${FILE_PACKAGES[@]} ${PROGRAM_PACKAGES[@]} ${BOOTLOADER_PACKAGES[@]} ${DESKTOP_PACKAGES[@]} 
 
 #Set up GRUB boot manager
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
