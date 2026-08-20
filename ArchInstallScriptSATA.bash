@@ -141,9 +141,8 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 #Install extra packages
 pacman -S --noconfirm ${HARDWARE_PACKAGES[@]} ${SERVICE_PACKAGES[@]} ${AUDIO_PACKAGES[@]} ${FILE_PACKAGES[@]} ${PROGRAM_PACKAGES[@]} ${BOOTLOADER_PACKAGES[@]} ${DESKTOP_PACKAGES[@]}
 
-#Set up GRUB boot manager
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
+#Set up systemd-boot
+bootctl install
 
 #Enable network manager
 systemctl enable NetworkManager
