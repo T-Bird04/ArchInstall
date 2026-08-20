@@ -71,10 +71,11 @@ vulkan-icd-loader
 lib32-vulkan-icd-loader)
 
 SERVICE_PACKAGES=(
+nftables
 networkmanager
 sudo
 inotify-tools
-tpm2-tools)
+curl)
 
 AUDIO_PACKAGES=(
 pipewire
@@ -104,8 +105,13 @@ wine
 winetricks)
 
 BOOTLOADER_PACKAGES=(
-grub
-grub-btrfs)
+systemd
+systemdgenie
+
+cryptsetup
+sbctl
+tpm2-tools
+)
 
 DESKTOP_PACKAGES=(
 plasma-meta
