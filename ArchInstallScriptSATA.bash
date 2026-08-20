@@ -23,13 +23,21 @@ name="Swap", size=32G, type=S
 name="Root", size=+, type=L
 EOF
 
-#Format paritions
+#Format partitions
 mkfs.fat -F 32 /dev/sda1 #EFI Boot parition is FAT32
 mkfs.btrfs -f /dev/sda3 #Root partition is Btrfs
 
 #Format + enable swap partition
 mkswap /dev/sda2
 swapon /dev/sda2
+
+#Encrypt partitions
+cryptsetup luksFormat --type luks2 /dev/sda2
+cryptsetup luksFormat --type luks2 /dev/sda3
+
+#Set up trusted platform module
+systemd-cryptenroll --tpm2-device=auto --tpm2-pcr=0+7 /dev/sda2
+systemd-cryptenroll --tpm2-device=auto --tpm2-pcr=0+7 /dev/sda3
 
 #Mount btrfs partition
 mount /dev/sda3 /mnt #Mount Root
@@ -65,7 +73,8 @@ lib32-vulkan-icd-loader)
 SERVICE_PACKAGES=(
 networkmanager
 sudo
-inotify-tools)
+inotify-tools
+tpm2-tools)
 
 AUDIO_PACKAGES=(
 pipewire
