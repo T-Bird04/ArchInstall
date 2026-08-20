@@ -108,6 +108,7 @@ BOOTLOADER_PACKAGES=(
 systemd
 systemdgenie
 systemd-ukify
+mkinitcpio
 cryptsetup
 sbctl
 tpm2-tools
