@@ -105,7 +105,6 @@ wine
 winetricks)
 
 BOOTLOADER_PACKAGES=(
-systemd
 systemdgenie
 systemd-ukify
 mkinitcpio
