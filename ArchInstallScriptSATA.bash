@@ -107,7 +107,7 @@ winetricks)
 BOOTLOADER_PACKAGES=(
 systemd
 systemdgenie
-
+systemd-ukify
 cryptsetup
 sbctl
 tpm2-tools
