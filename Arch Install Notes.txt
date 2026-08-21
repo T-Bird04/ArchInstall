@@ -1,6 +1,8 @@
 Ensure Windows SSD NVMe slot is disabled in BIOS/UEFI (Should be slot 1).
 Use Nano to enable multilib for pacman (nano /etc/pacman.conf).
-Use curl to install script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
+Use curl to install installation script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
+Use Nano to set Kernal-Install layout to UKI (nano /etc/kernel/install.conf).
+Use curl to install security script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/SecurityScript.bash | bash).
 Set Root password (passwd).
 Create User account.
 Configure sudo and grant User account sudo permissions.
