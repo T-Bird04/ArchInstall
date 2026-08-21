@@ -146,6 +146,9 @@ systemctl enable NetworkManager
 #Enable KDE Plasma desktop
 systemctl enable sddm
 
+#Exit chroot
+exit
+
 CHROOT_EOF
 
 #Let user know script is done
