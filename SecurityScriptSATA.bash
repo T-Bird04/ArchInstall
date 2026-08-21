@@ -14,4 +14,4 @@ sbctl enroll-keys --microsoft
 pacman -S --noconfirm linux
 
 #Sign bootloader
-sbctl sign -s /efi/EFI/systemd/systemd-bootx64.efi
+sbctl sign -s /boot/EFI/systemd/systemd-bootx64.efi
