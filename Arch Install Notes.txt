@@ -12,3 +12,5 @@ Reboot system.
 
 After Entering Desktop:
 Enable TPM2 for auto LUKS2 unlock
+Configure networking
+Configure Firewall
