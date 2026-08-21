@@ -1,7 +1,6 @@
 Ensure Windows SSD NVMe slot is disabled in BIOS/UEFI (Should be slot 1).
 Clear secure boot keys and set it to setup mode.
 Use Nano to create a txt file in ISO root containing LUKS2 encryption password named password.txt.
-Use Nano to create a txt file in ISO root containing TPM2 pin named pin.txt.
 Use Nano to enable multilib for pacman (nano /etc/pacman.conf).
 Use curl to install installation script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
 Use Nano to set Kernal-Install layout to UKI (nano /etc/kernel/install.conf).
@@ -12,6 +11,6 @@ Configure sudo and grant User account sudo permissions.
 Reboot system.
 
 After Entering Desktop:
-Enable TPM2 for auto LUKS2 unlock
+Configure and enable TPM2 for auto LUKS2 unlock
 Configure networking
 Configure firewall (Only enable UFW service and not [ip/nf]tables services)
