@@ -13,4 +13,4 @@ Reboot system.
 After Entering Desktop:
 Enable TPM2 for auto LUKS2 unlock
 Configure networking
-Configure Firewall
+Configure Firewall (Only enable UFW service and not [ip/nf]tables services)
