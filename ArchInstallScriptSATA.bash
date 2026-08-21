@@ -32,8 +32,8 @@ mkswap /dev/sda2
 swapon /dev/sda2
 
 #Encrypt partitions
-cryptsetup luksFormat --type luks2 /dev/sda2
-cryptsetup luksFormat --type luks2 /dev/sda3
+cryptsetup luksFormat --type luks2 /dev/sda2 --Key-File 
+cryptsetup luksFormat --type luks2 /dev/sda3 --Key-File
 
 #Mount btrfs partition
 mount /dev/sda3 /mnt #Mount Root
