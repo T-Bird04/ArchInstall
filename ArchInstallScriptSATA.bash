@@ -113,6 +113,7 @@ tpm2-tools
 
 DESKTOP_PACKAGES=(
 plasma-meta
+plasma-wayland-session
 plasma-firewall
 sddm)
 
