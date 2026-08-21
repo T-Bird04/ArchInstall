@@ -31,11 +31,9 @@ mkfs.btrfs -f /dev/sda3 #Root partition is Btrfs
 mkswap /dev/sda2
 swapon /dev/sda2
 
-
-
 #Encrypt partitions
-cryptsetup luksFormat --type luks2 /dev/sda2 -d
-cryptsetup luksFormat --type luks2 /dev/sda3 -d
+cryptsetup luksFormat --type luks2 /dev/sda2
+cryptsetup luksFormat --type luks2 /dev/sda3
 
 #Mount btrfs partition
 mount /dev/sda3 /mnt #Mount Root
