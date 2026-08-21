@@ -8,3 +8,6 @@ Set Root password (passwd).
 Create User account.
 Configure sudo and grant User account sudo permissions.
 Reboot system.
+
+After entering desktop:
+Enable TPM2 for auto LUKS2 unlock
