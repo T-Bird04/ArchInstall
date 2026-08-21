@@ -11,6 +11,6 @@ Configure sudo and grant User account sudo permissions.
 Reboot system.
 
 After Entering Desktop:
-Configure and enable TPM2 for auto LUKS2 unlock
+Configure and enable TPM2 for auto LUKS2 unlock with pin
 Configure networking
 Configure firewall (Only enable UFW service and not [ip/nf]tables services)
