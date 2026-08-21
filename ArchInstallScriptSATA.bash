@@ -35,10 +35,6 @@ swapon /dev/sda2
 cryptsetup luksFormat --type luks2 /dev/sda2
 cryptsetup luksFormat --type luks2 /dev/sda3
 
-#Set up trusted platform module
-systemd-cryptenroll --tpm2-device=auto --tpm2-pcr=0+7 /dev/sda2
-systemd-cryptenroll --tpm2-device=auto --tpm2-pcr=0+7 /dev/sda3
-
 #Mount btrfs partition
 mount /dev/sda3 /mnt #Mount Root
 
