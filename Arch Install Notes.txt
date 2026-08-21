@@ -1,3 +1,7 @@
+Before ISO deployment:
+Mount ISO in Windows and create key file for LUKS2 encryption (will be .txt).
+
+After Deploying ISO:
 Ensure Windows SSD NVMe slot is disabled in BIOS/UEFI (Should be slot 1).
 Clear secure boot keys and set it to setup mode.
 Use Nano to enable multilib for pacman (nano /etc/pacman.conf).
