@@ -68,6 +68,7 @@ lib32-vulkan-icd-loader)
 
 SERVICE_PACKAGES=(
 nftables
+iptables-nft
 ufw
 networkmanager
 sudo
@@ -112,6 +113,7 @@ tpm2-tools
 
 DESKTOP_PACKAGES=(
 plasma-meta
+plasma-firewall
 sddm)
 
 #Install core packages
