@@ -68,6 +68,7 @@ lib32-vulkan-icd-loader)
 
 SERVICE_PACKAGES=(
 nftables
+ufw
 networkmanager
 sudo
 inotify-tools
