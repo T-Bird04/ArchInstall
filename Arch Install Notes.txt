@@ -1,4 +1,4 @@
-Before ISO deployment:
+Before ISO Deployment:
 Mount ISO in Windows and create key file for LUKS2 encryption (will be .txt).
 
 After Deploying ISO:
@@ -13,5 +13,5 @@ Create User account.
 Configure sudo and grant User account sudo permissions.
 Reboot system.
 
-After entering desktop:
+After Entering Desktop:
 Enable TPM2 for auto LUKS2 unlock
