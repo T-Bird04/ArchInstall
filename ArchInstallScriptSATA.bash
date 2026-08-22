@@ -108,7 +108,7 @@ systemd-ukify
 mkinitcpio
 cryptsetup
 sbctl
-tpm2-tools
+tpm2-tss
 )
 
 DESKTOP_PACKAGES=(
