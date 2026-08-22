@@ -9,8 +9,8 @@ Use curl to install installation script from git and run it (curl -L https://raw
 Use Nano to set Kernal-Install layout to UKI (nano /mnt/etc/kernel/install.conf).
 Use curl to install security script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/SecurityScript.bash | bash).
 Set Root password (passwd).
-Create User account.
-Configure sudo and grant User account sudo permissions.
+Configure Sudo (use "visudo" command to access conf file).
+Create user account.
 Reboot system.
 
 After Entering Desktop:
