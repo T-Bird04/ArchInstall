@@ -1,5 +1,8 @@
+Before Entering Arch ISO:
 Ensure Windows SSD NVMe slot is disabled in BIOS/UEFI (Should be slot 1).
 Clear secure boot keys and set it to setup mode.
+
+After Entering Arch ISO:
 Use Nano to create a txt file in ISO root containing LUKS2 encryption password named password.txt.
 Use Nano to enable multilib for pacman (nano /etc/pacman.conf).
 Use curl to install installation script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
