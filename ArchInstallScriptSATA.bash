@@ -26,10 +26,6 @@ name="Swap", size=32G, type=S
 name="Root", size=+, type=L
 EOF
 
-#Format partitions
-mkfs.fat -F 32 /dev/sda1 #EFI Boot parition is FAT32
-mkfs.btrfs -f /dev/sda3 #Root partition is Btrfs
-
 #Encrypt partitions
 cryptsetup luksFormat --type luks2 /dev/sda2
 cryptsetup luksFormat --type luks2 /dev/sda3
@@ -38,11 +34,17 @@ cryptsetup luksFormat --type luks2 /dev/sda3
 cryptsetup open --type luks2 /dev/sda2 cryptswap
 cryptsetup open --type luks2 /dev/sda3 cryptroot
 
+#Format boot partition
+mkfs.fat -F 32 /dev/sda1 #EFI Boot parition is FAT32
+
 #Format and enable swap partition
 mkswap /dev/mapper/cryptswap
 swapon /dev/mapper/cryptswap
 
-#Mount btrfs partition
+#Format root partition
+mkfs.btrfs -f /dev/sda3
+
+#Mount root partition
 mount /dev/mapper/cryptroot /mnt #Mount Root
 
 #Create subvolumes for use with snapper
@@ -50,7 +52,7 @@ btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@snapshots
 
-#Unmount Btrfs partition and mount subvolumes and boot partition
+#Unmount root partition and mount subvolumes and boot partition
 umount /mnt
 mount -o subvol=@,compress=zstd,noatime /dev/mapper/cryptroot /mnt
 mkdir -p /mnt/home
