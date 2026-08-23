@@ -18,7 +18,7 @@ if [[ "$(cat /sys/firmware/efi/fw_platform_size)" != "64" ]]; then
     exit 1
 fi
 
-#Create disk partitions (First is EFI Boot and second is Linux Root)
+#Create disk partitions (First is EFI Boot, second is swap, and third is Linux Root)
 sfdisk /dev/sda <<EOF
 label: gpt
 name="Boot", size=1G, type=U
