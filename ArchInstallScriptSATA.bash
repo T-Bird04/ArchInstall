@@ -52,11 +52,11 @@ btrfs subvolume create /mnt/@snapshots
 
 #Unmount Btrfs partition and mount subvolumes and boot partition
 umount /mnt
-mount -o subvol=@,compress=zstd,noatime /dev/sda3 /mnt
+mount -o subvol=@,compress=zstd,noatime /dev/mapper/cryptroot /mnt
 mkdir -p /mnt/home
-mount -o subvol=@home,compress=zstd,noatime /dev/sda3 /mnt/home
+mount -o subvol=@home,compress=zstd,noatime /dev/mapper/cryptroot /mnt/home
 mkdir -p /mnt/.snapshots
-mount -o subvol=@snapshots,compress=zstd,noatime /dev/sda3 /mnt/.snapshots
+mount -o subvol=@snapshots,compress=zstd,noatime /dev/mapper/cryptroot /mnt/.snapshots
 mount --mkdir /dev/sda1 /mnt/boot
 
 #Create package bundles
