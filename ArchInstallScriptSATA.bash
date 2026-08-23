@@ -42,7 +42,7 @@ mkswap /dev/mapper/cryptswap
 swapon /dev/mapper/cryptswap
 
 #Format root partition
-mkfs.btrfs -f /dev/sda3
+mkfs.btrfs -f /dev/mapper/cryptroot
 
 #Mount root partition
 mount /dev/mapper/cryptroot /mnt #Mount Root
