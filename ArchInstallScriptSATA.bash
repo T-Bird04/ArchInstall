@@ -4,6 +4,9 @@
 #Enable stop on error
 set -euo pipefail
 
+#Enable terminal input
+exec </dev/tty
+
 #Verify proper UEFI 64 boot mode
 if [[ ! -d /sys/firmware/efi ]]; then
     echo "System was not booted in UEFI mode."
@@ -27,16 +30,27 @@ EOF
 mkfs.fat -F 32 /dev/sda1 #EFI Boot parition is FAT32
 mkfs.btrfs -f /dev/sda3 #Root partition is Btrfs
 
-#Format + enable swap partition
+#Format swap partition
 mkswap /dev/sda2
-swapon /dev/sda2
 
 #Encrypt partitions
 cryptsetup luksFormat --type luks2 /dev/sda2 --Key-File /password.txt
 cryptsetup luksFormat --type luks2 /dev/sda3 --Key-File /password.txt
 
+#Open encrypted partitions
+cryptsetup open --type luks2 /dev/sda2 --Key-File /password.txt
+cryptsetup open --type luks2 /dev/sda3 --Key-File /password.txt
+
+
 #Mount btrfs partition
 mount /dev/sda3 /mnt #Mount Root
+
+
+#Enable swap partition
+swapon /dev/sda2
+
+
+
 
 #Create subvolumes for use with snapper
 btrfs subvolume create /mnt/@
@@ -109,6 +123,7 @@ mkinitcpio
 cryptsetup
 sbctl
 tpm2-tss
+tpm2-tools
 )
 
 DESKTOP_PACKAGES=(
