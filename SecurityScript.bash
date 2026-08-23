@@ -7,7 +7,7 @@ set -euo pipefail
 #Create secure boot keys
 sbctl create-keys
 
-#Enroll the keys (--microsoft allows for Windows dual boot)
+#Enroll the keys (--microsoft allows for Windows dual boot and -f provides OEM firmware certs)
 sbctl enroll-keys --microsoft -f
 
 #Create UKI by re-downloading the linux kernel (sbctl will auto sign)
