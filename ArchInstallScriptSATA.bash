@@ -34,12 +34,12 @@ mkfs.btrfs -f /dev/sda3 #Root partition is Btrfs
 mkswap /dev/sda2
 
 #Encrypt partitions
-cryptsetup luksFormat --type luks2 /dev/sda2 --Key-File /password.txt
-cryptsetup luksFormat --type luks2 /dev/sda3 --Key-File /password.txt
+cryptsetup luksFormat --type luks2 /dev/sda2
+cryptsetup luksFormat --type luks2 /dev/sda3
 
 #Open encrypted partitions
-cryptsetup open --type luks2 /dev/sda2 --Key-File /password.txt
-cryptsetup open --type luks2 /dev/sda3 --Key-File /password.txt
+cryptsetup open --type luks2 /dev/sda2
+cryptsetup open --type luks2 /dev/sda3
 
 
 #Mount btrfs partition
