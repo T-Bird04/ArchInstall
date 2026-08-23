@@ -30,27 +30,20 @@ EOF
 mkfs.fat -F 32 /dev/sda1 #EFI Boot parition is FAT32
 mkfs.btrfs -f /dev/sda3 #Root partition is Btrfs
 
-#Format swap partition
-mkswap /dev/sda2
-
 #Encrypt partitions
 cryptsetup luksFormat --type luks2 /dev/sda2
 cryptsetup luksFormat --type luks2 /dev/sda3
 
 #Open encrypted partitions
-cryptsetup open --type luks2 /dev/sda2
-cryptsetup open --type luks2 /dev/sda3
+cryptsetup open --type luks2 /dev/sda2 cryptswap
+cryptsetup open --type luks2 /dev/sda3 cryptroot
 
+#Format and enable swap partition
+mkswap /dev/mapper/cryptswap
+swapon /dev/mapper/cryptswap
 
 #Mount btrfs partition
-mount /dev/sda3 /mnt #Mount Root
-
-
-#Enable swap partition
-swapon /dev/sda2
-
-
-
+mount /dev/mapper/cryptroot /mnt #Mount Root
 
 #Create subvolumes for use with snapper
 btrfs subvolume create /mnt/@
