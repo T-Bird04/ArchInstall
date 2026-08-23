@@ -8,7 +8,7 @@ set -euo pipefail
 sbctl create-keys
 
 #Enroll the keys (--microsoft allows for Windows dual boot)
-sbctl enroll-keys --microsoft
+sbctl enroll-keys --microsoft -f
 
 #Create UKI by re-downloading the linux kernel (sbctl will auto sign)
 pacman -S --noconfirm linux
