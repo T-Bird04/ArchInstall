@@ -170,7 +170,7 @@ sbctl create-keys
 sbctl enroll-keys --microsoft -f
 
 #Change Kernal-Install layout to UKI
-nano /mnt/etc/kernel/install.conf </dev/tty
+nano /etc/kernel/install.conf </dev/tty
 
 #Create UKI by re-downloading the linux kernel (sbctl will auto sign)
 pacman -S --noconfirm linux
