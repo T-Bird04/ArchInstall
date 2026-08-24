@@ -173,6 +173,9 @@ nano /etc/mkinitcpio.conf </dev/tty
 #Change Kernal-Install layout to UKI
 nano /etc/kernel/install.conf </dev/tty
 
+#Create kernel command line file
+echo "rd.luks.name=$(blkid -s UUID -o value /dev/sda3)=cryptroot root=/dev/mapper/cryptroot rw loglevel=3 quiet" > /etc/kernel/cmdline
+
 #Configure ukify config file (Settings: [UKI]  SecureBootSigningTool=systemd-sbsign  SignKernel=true  SecureBootPrivateKey=/etc/kernel/secure-boot-private-key.pem  SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem)
 nano /etc/kernel/uki.conf </dev/tty
 
