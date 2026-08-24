@@ -128,7 +128,7 @@ plasma-firewall
 sddm)
 
 #Enable multilib in pacman confs
-nano /mnt/etc/pacman.conf
+nano /etc/pacman.conf
 cp /etc/pacman.conf /mnt/etc/pacman.conf
 
 #Install packages
