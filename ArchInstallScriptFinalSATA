@@ -167,6 +167,9 @@ sbctl create-keys
 #Enroll the keys (--microsoft allows for Windows dual boot and -f provides OEM firmware certs)
 sbctl enroll-keys --microsoft -f
 
+#Configure mkinitcpio
+nano /etc/mkinitcpio.conf </dev/tty
+
 #Change Kernal-Install layout to UKI
 nano /etc/kernel/install.conf </dev/tty
 
