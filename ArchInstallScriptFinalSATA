@@ -133,11 +133,14 @@ pacstrap -K /mnt "${CORE_PACKAGES[@]}"
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
 
-#Update pacman.conf
-cp /etc/pacman.conf /mnt/etc/pacman.conf
+#Enable multilib in pacman conf
+nano /etc/pacman.conf
 
 #Enter chroot
 arch-chroot /mnt <<CHROOT_EOF
+
+#Create root password
+passwd </dev/tty
 
 #Set up user time
 ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
@@ -160,13 +163,14 @@ systemctl enable NetworkManager
 #Enable KDE Plasma desktop
 systemctl enable sddm
 
-CHROOT_EOF
-
 #Create secure boot keys
 sbctl create-keys
 
 #Enroll the keys (--microsoft allows for Windows dual boot and -f provides OEM firmware certs)
 sbctl enroll-keys --microsoft -f
+
+#Change Kernal-Install layout to UKI
+nano /mnt/etc/kernel/install.conf </dev/tty
 
 #Create UKI by re-downloading the linux kernel (sbctl will auto sign)
 pacman -S --noconfirm linux
@@ -174,8 +178,15 @@ pacman -S --noconfirm linux
 #Sign bootloader
 sbctl sign -s /boot/EFI/systemd/systemd-bootx64.efi
 
+#Enable sudo wheel group
+visudo </dev/tty
 
+#Create and configure user account
+useradd -m -s /bin/bash Terrence
+passwd Terrence </dev/tty
+usermod -aG wheel Terrence
 
+CHROOT_EOF
 
 #Let user know script is done
 echo "Install script finished"
