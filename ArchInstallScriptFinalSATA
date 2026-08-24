@@ -170,6 +170,11 @@ sbctl enroll-keys --microsoft -f
 #Change Kernal-Install layout to UKI
 nano /etc/kernel/install.conf </dev/tty
 
+#Configure ukify config file ([UKI]   SecureBootSigningTool=systemd-sbsign   SignKernel=true   SecureBootPrivateKey=/etc/kernel/secure-boot-private-key.pem   SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem)
+nano /etc/kernel/uki.conf </dev/tty
+
+
+
 #Create UKI by re-downloading the linux kernel (sbctl will auto sign)
 pacman -S --noconfirm linux
 
