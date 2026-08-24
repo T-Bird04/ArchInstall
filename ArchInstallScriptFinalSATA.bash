@@ -71,8 +71,6 @@ vulkan-icd-loader
 lib32-vulkan-icd-loader)
 
 SERVICE_PACKAGES=(
-iptables
-iptables-nft
 ufw
 networkmanager
 sudo
