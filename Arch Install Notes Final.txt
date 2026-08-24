@@ -4,7 +4,7 @@ Clear secure boot keys and set it to setup mode.
 
 After Entering Arch ISO:
 Use curl to install installation script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
-    Configure mkinitcpio -> HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck)
+    Configure mkinitcpio -> HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block sd-encrypt filesystems fsck)
                             Disable all UKI auto-gen features.
     Configure ukify config file ->  [UKI] SecureBootSigningTool=systemd-sbsign 
                                     SignKernel=true 
