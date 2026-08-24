@@ -173,7 +173,9 @@ nano /etc/kernel/install.conf </dev/tty
 #Configure ukify config file (Settings: [UKI] \n SecureBootSigningTool=systemd-sbsign \n SignKernel=true \n SecureBootPrivateKey=/etc/kernel/secure-boot-private-key.pem \n SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem)
 nano /etc/kernel/uki.conf </dev/tty
 
-
+#Move key and cert to path in ukify conf
+cp /var/lib/sbctl/keys/secure-boot-private-key.pem /etc/kernel/secure-boot-private-key.pem
+cp /var/lib/sbctl/keys/secure-boot-certificate.pem /etc/kernel/secure-boot-certificate.pem
 
 #Create UKI by re-downloading the linux kernel (sbctl will auto sign)
 pacman -S --noconfirm linux
