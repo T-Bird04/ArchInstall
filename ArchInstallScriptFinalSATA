@@ -127,14 +127,14 @@ plasma-wayland-session
 plasma-firewall
 sddm)
 
-#Install core packages
-pacstrap -K /mnt "${CORE_PACKAGES[@]}"  
+#Enable multilib in pacman conf
+nano /mnt/etc/pacman.conf
+
+#Install packages
+pacstrap -K /mnt ${CORE_PACKAGES[@]} ${HARDWARE_PACKAGES[@]} ${SERVICE_PACKAGES[@]} ${AUDIO_PACKAGES[@]} ${FILE_PACKAGES[@]} ${PROGRAM_PACKAGES[@]} ${BOOTLOADER_PACKAGES[@]} ${DESKTOP_PACKAGES[@]}
 
 #Create fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
-
-#Enable multilib in pacman conf
-nano /mnt/etc/pacman.conf
 
 #Enter chroot
 arch-chroot /mnt <<CHROOT_EOF
@@ -150,9 +150,6 @@ hwclock --systohc
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
-
-#Install extra packages
-pacman -S --noconfirm ${HARDWARE_PACKAGES[@]} ${SERVICE_PACKAGES[@]} ${AUDIO_PACKAGES[@]} ${FILE_PACKAGES[@]} ${PROGRAM_PACKAGES[@]} ${BOOTLOADER_PACKAGES[@]} ${DESKTOP_PACKAGES[@]}
 
 #Set up systemd-boot
 bootctl install
