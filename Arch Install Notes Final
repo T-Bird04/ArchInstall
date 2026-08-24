@@ -1,0 +1,14 @@
+Before Entering Arch ISO:
+Ensure Windows SSD NVMe slot is disabled in BIOS/UEFI (Should be slot 1).
+Clear secure boot keys and set it to setup mode.
+
+After Entering Arch ISO:
+Use curl to install installation script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
+Verify configurations.
+Reboot system.
+
+After Entering Desktop:
+Configure and enable TPM2 for auto LUKS2 unlock with password (pin can use any standard ASCII characters).
+Configure networking
+Configure firewall (Only enable UFW service and not [ip/nf]tables services)
+Customize desktop (don't forget to enable auto num-lock and to copy configuration to the SDDM).
