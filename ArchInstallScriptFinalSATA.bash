@@ -196,8 +196,8 @@ nano /etc/kernel/uki.conf </dev/tty
 cp /var/lib/sbctl/keys/secure-boot-private-key.pem /etc/kernel/secure-boot-private-key.pem
 cp /var/lib/sbctl/keys/secure-boot-certificate.pem /etc/kernel/secure-boot-certificate.pem
 
-#Create UKI by re-downloading the linux kernel (sbctl will auto sign)
-pacman -S --noconfirm linux
+#Create UKI by adding the linux kernel (sbctl will auto sign)
+kernel-install add-all
 
 #Sign bootloader
 sbctl sign -s /boot/EFI/systemd/systemd-bootx64.efi
