@@ -26,20 +26,27 @@ name="Swap", size=32G, type=S
 name="Root", size=+, type=L
 EOF
 
-#Encrypt partitions
-cryptsetup luksFormat --type luks2 /dev/sda2
+#Encrypt root partition
 cryptsetup luksFormat --type luks2 /dev/sda3
 
-#Open encrypted partitions
-cryptsetup open --type luks2 /dev/sda2 cryptswap
+#Open encrypted root partition
 cryptsetup open --type luks2 /dev/sda3 cryptroot
 
 #Format boot partition
 mkfs.fat -F 32 /dev/sda1 #EFI Boot parition is FAT32
 
-#Format and enable swap partition
-mkswap /dev/mapper/cryptswap
-swapon /dev/mapper/cryptswap
+#Find UUID for swap partition
+SWAP_PARTUUID=$(blkid -s PARTUUID -o value /dev/sda2)
+
+#Encrypt swap with random key
+cat > /mnt/etc/crypttab <<EOF
+swap /dev/disk/by-partuuid/${SWAP_PARTUUID} /dev/urandom swap,cipher=aes-xts-plain64,size=512,sector-size=4096
+EOF
+
+#Update fstab for swap unencryption
+cat >> /mnt/etc/fstab <<EOF
+/dev/mapper/swap none swap defaults 0 0
+EOF
 
 #Format root partition
 mkfs.btrfs -f /dev/mapper/cryptroot
