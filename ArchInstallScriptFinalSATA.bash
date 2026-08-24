@@ -173,7 +173,7 @@ nano /etc/mkinitcpio.conf </dev/tty
 #Change Kernal-Install layout to UKI
 nano /etc/kernel/install.conf </dev/tty
 
-#Configure ukify config file (Settings: [UKI] \n SecureBootSigningTool=systemd-sbsign \n SignKernel=true \n SecureBootPrivateKey=/etc/kernel/secure-boot-private-key.pem \n SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem)
+#Configure ukify config file (Settings: [UKI]  SecureBootSigningTool=systemd-sbsign  SignKernel=true  SecureBootPrivateKey=/etc/kernel/secure-boot-private-key.pem  SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem)
 nano /etc/kernel/uki.conf </dev/tty
 
 #Move key and cert to path in ukify conf
