@@ -186,6 +186,9 @@ useradd -m -s /bin/bash Terrence
 passwd Terrence </dev/tty
 usermod -aG wheel Terrence
 
+#Exit chroot
+exit
+
 CHROOT_EOF
 
 #Let user know script is done
