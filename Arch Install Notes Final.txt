@@ -4,6 +4,12 @@ Clear secure boot keys and set it to setup mode.
 
 After Entering Arch ISO:
 Use curl to install installation script from git and run it (curl -L https://raw.githubusercontent.com/T-Bird04/ArchInstall/refs/heads/main/ArchInstallScript.bash | bash).
+    Configure mkinitcpio -> Update HOOKS and disable auto UKI features.
+    Configure ukify config file ->  [UKI] SecureBootSigningTool=systemd-sbsign 
+                                    SignKernel=true 
+                                    SecureBootPrivateKey=/etc/kernel/secure-boot-private-key.pem 
+                                    SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem)
+
 Verify configurations.
 Reboot system.
 
