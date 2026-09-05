@@ -19,7 +19,7 @@ if [[ "$(cat /sys/firmware/efi/fw_platform_size)" != "64" ]]; then
 fi
 
 #Create disk partitions (First is EFI Boot, second is swap, and third is Linux Root)
-sfdisk /dev/nvem0p <<EOF
+sfdisk /dev/nvme0n1 <<EOF
 label: gpt
 name="Boot", size=1G, type=U
 name="Swap", size=32G, type=S
@@ -27,13 +27,13 @@ name="Root", size=+, type=L
 EOF
 
 #Encrypt root partition
-cryptsetup luksFormat --type luks2 /dev/nvem0p3
+cryptsetup luksFormat --type luks2 /dev/nvme0n1p3
 
 #Open encrypted root partition
-cryptsetup open --type luks2 /dev/nvem0p3 cryptroot
+cryptsetup open --type luks2 /dev/nvme0n1p3 cryptroot
 
 #Format boot partition
-mkfs.fat -F 32 /dev/nvem0p1 #EFI Boot parition is FAT32
+mkfs.fat -F 32 /dev/nvme0n1p1 #EFI Boot parition is FAT32
 
 #Format root partition
 mkfs.btrfs -f /dev/mapper/cryptroot
@@ -53,7 +53,7 @@ mkdir -p /mnt/home
 mount -o subvol=@home,compress=zstd,noatime /dev/mapper/cryptroot /mnt/home
 mkdir -p /mnt/.snapshots
 mount -o subvol=@snapshots,compress=zstd,noatime /dev/mapper/cryptroot /mnt/.snapshots
-mount --mkdir /dev/nvem0p1 /mnt/boot
+mount --mkdir /dev/nvme0n1p1 /mnt/boot
 
 #Create package bundles
 CORE_PACKAGES=(
@@ -131,7 +131,7 @@ pacstrap -K /mnt ${CORE_PACKAGES[@]} ${HARDWARE_PACKAGES[@]} ${SERVICE_PACKAGES[
 genfstab -U /mnt >> /mnt/etc/fstab
 
 #Find UUID for swap partition
-SWAP_PARTUUID=$(blkid -s PARTUUID -o value /dev/nvem0p2)
+SWAP_PARTUUID=$(blkid -s PARTUUID -o value /dev/nvme0n1p2)
 
 #Encrypt swap with random key
 cat > /mnt/etc/crypttab <<EOF
@@ -180,7 +180,7 @@ nano /etc/mkinitcpio.conf </dev/tty
 nano /etc/kernel/install.conf </dev/tty
 
 #Find UUID of root partition
-ROOT_UUID=$(blkid -s UUID -o value /dev/nvem0p3)
+ROOT_UUID=$(blkid -s UUID -o value /dev/nvme0n1p3)
 
 #Create kernel command line file
 cat > /etc/kernel/cmdline <<EOF
